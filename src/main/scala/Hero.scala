@@ -25,3 +25,4 @@ class Hero(name: String, attack: Int, defense: Int) extends Creature(name, attac
 
 
 }
+

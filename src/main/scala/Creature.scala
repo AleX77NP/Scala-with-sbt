@@ -1,4 +1,4 @@
-class Creature(var name: String, var attack: Int, var defense: Int) {
+class Creature(private var name: String, private var attack: Int, private var defense: Int) {
   this.name = name
   this.attack = attack
   this.defense = defense
@@ -15,11 +15,42 @@ class Creature(var name: String, var attack: Int, var defense: Int) {
     this.defense = defense
   }
 
+  def getAttack(): Int = {
+    attack
+  }
+
+  def getDefense(): Int = {
+    defense
+  }
+
+  def getName(): String = {
+    name
+  }
+
   def attackOpponent(creature: Creature) = {
-    creature.takeDamage(attack)
+    if(defense > 0) {
+      printf("%s attacks opponent!\n", name)
+      if(creature.getDefense() > 0)
+        creature.takeDamage(attack / 10)
+      else
+        printf("%s is defeated\n", creature.getName())
+    }
   }
 
   def takeDamage(damage: Int) = {
-    setDefense(this.defense - damage)
+    if (damage >= defense)
+      defense = 0
+    else
+      setDefense(this.defense - damage)
+    }
+}
+
+object Aliveness {
+  def healthCheck(creature: Creature): Boolean = {
+    creature.getDefense() > 0
+  }
+
+  def status(creature: Creature): String = {
+    if (healthCheck(creature)) "Healthy" else "Gone"
   }
 }
